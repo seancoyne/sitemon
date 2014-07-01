@@ -1,0 +1,22 @@
+{
+  "name": "sitemon",
+  "version": "0.0.1",
+  "description": "Monitors a URL and, if non-responsive, executes a command",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean Coyne <sean@n42designs.com>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.2.0",
+    "http-monitor": "^0.3.5"
+  },
+  "preferGlobal": true,
+  "directories": {
+    "bin": "./bin"
+  },
+  "bin": {
+    "sitemon": "./bin/sitemon"
+  }
+}
