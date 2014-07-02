@@ -18,7 +18,21 @@ sitemon(
 	program.command,
 	program.retries,
 	((program.interval * 60 * 1000) / 2),
-	(program.timeout * 1000)
+	(program.timeout * 1000),
+	function(err){
+		console.warn(new Date(), "Site is down!");
+	},
+	function(){
+		console.info(new Date(), "Site is back up!");
+	},
+	function(){
+		console.info(new Date(), "Site is up.  Status Code:", statusCode);
+	},
+	function(err, stdout, stderr) {
+		if (err) console.error(new Date(), err);
+		if (stdout) console.info(new Date(), stdout);
+		if (stderr) console.error(new Date(), stderr);
+	}
 );
 
 console.info(new Date(), "Monitoring...");
