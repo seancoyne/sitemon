@@ -25,7 +25,7 @@ sitemon(
 	function(){
 		console.info(new Date(), "Site is back up!");
 	},
-	function(){
+	function(statusCode){
 		console.info(new Date(), "Site is up.  Status Code:", statusCode);
 	},
 	function(err, stdout, stderr) {
