@@ -9,7 +9,6 @@
 */
 
 var prompt = require("prompt"),
-	optimist = require('optimist'),
 	path = require("path"),
 	exec = require("child_process").exec,
 	os = require("os");
@@ -23,9 +22,6 @@ prompt.message = "";
 prompt.delimiter = "";
 prompt.start();
 
-// allow command line override
-prompt.override = optimist.argv;
-
 prompt.get({
 	properties: {
 		servicename: {
@@ -34,66 +30,29 @@ prompt.get({
 			type: "string",
 			required: true
 		},
+		servicedescription: {
+			description: "Service Description",
+			default: "Monitors a URL and, if non-respsonsive, executes a command.",
+			type: "string",
+			required: true
+		},
 		pathtonssm: {
 			description: "Path to nssm.exe?",
 			default: "c:\\nssm-2.23\\win64\\nssm.exe",
 			type: "string",
-			required: true
-		},
-		command: {
-			description: "Command to execute when the site is down?",
-			default: 'net stop \\"Apache2.2\\" && net start \\"Apache2.2\\"',
-			type: "string",
-			required: true
-		},
-		uri: {
-			description: "URL to check?",
-			default: "http://localhost/",
-			message: "Must be a valid URL",
-			pattern: /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/,
-			required: true
-		},
-		interval: {
-			description: "How often, in minutes, should we check?",
-			default: 5,
-			message: "Must be a valid integer",
-			pattern: /^[\d]{1,}$/,
-			required: true
-		},
-		timeout: {
-			description: "How long should we wait, in seconds, for the site to respond?",
-			default: 30,
-			message: "Must be a valid integer",
-			pattern: /^[\d]{1,}$/,
-			required: true	
-		},
-		retries: {
-			description: "How many times should we try accessing the website before restarting it?",
-			default: 1,
-			message: "Must be a valid integer",
-			pattern: /^[\d]{1,}$/,
 			required: true
 		}
 	}
 }, function(err, result){
 	
 	var siteMonPath = path.normalize(__dirname + "/bin/sitemon");
-	var siteMonArgs = ([
-			'--url', '""' + result.uri + '""', 
-			'--interval', result.interval, 
-			'--timeout', result.timeout, 
-			'--retries', result.retries, 
-			'--command', '\'' + result.command + '\''
-	]).join(" ");
 	var nodePath = process.execPath;
 	var logDir = path.dirname(path.dirname(siteMonPath));
 	
 	var nssmPath = result.pathtonssm;
 	var nssmServiceName = result.servicename;
-	var nssmInstallCommand = nssmPath + ' install "' + nssmServiceName + '" "' + nodePath + '"';
-	var nssmAppDirectory = path.dirname(nodePath);
-	var nssmApplication = nodePath;
-	var nssmAppParameters = siteMonPath + ' ' + siteMonArgs;
+	var nssmServiceDescription = result.servicedescription;
+	var nssmInstallCommand = nssmPath + ' install "' + nssmServiceName + '" "' + nodePath + '" "' + siteMonPath + '"';
 	var nssmErrorLogPath = path.normalize(logDir + '/stderr.log');
 	var nssmOutLogPath = path.normalize(logDir + '/stdout.log');
 	
@@ -117,16 +76,13 @@ prompt.get({
 	}
 	
 	runCommand(nssmInstallCommand, function(){
-		setNSSMServiceProperty(nssmServiceName, 'AppDirectory', nssmAppDirectory, function(){
-			setNSSMServiceProperty(nssmServiceName, 'AppParameters', nssmAppParameters, function(){
-				setNSSMServiceProperty(nssmServiceName, 'AppStderr', nssmErrorLogPath, function(){
-					setNSSMServiceProperty(nssmServiceName, 'AppStdout', nssmOutLogPath, function(){
-						console.log("Complete!");
-					});
+		setNSSMServiceProperty(nssmServiceName, 'Description', nssmServiceDescription, function(){
+			setNSSMServiceProperty(nssmServiceName, 'AppStderr', nssmErrorLogPath, function(){
+				setNSSMServiceProperty(nssmServiceName, 'AppStdout', nssmOutLogPath, function(){
+					console.log("Complete!");
 				});
 			});
 		});
-		
 	});
 	
 });

@@ -1,6 +1,6 @@
 {
   "name": "sitemon",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Monitors a URL and, if non-responsive, executes a command",
   "main": "index.js",
   "scripts": {
@@ -9,10 +9,9 @@
   "author": "Sean Coyne <sean@n42designs.com> (http://www.n42designs.com/)",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.2.0",
     "http-monitor": "^0.3.5",
-    "optimist": "^0.6.1",
-    "prompt": "^0.2.13"
+    "prompt": "^0.2.13",
+    "rc": "^0.4.0"
   },
   "preferGlobal": true,
   "directories": {

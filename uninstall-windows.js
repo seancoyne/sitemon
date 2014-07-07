@@ -9,7 +9,6 @@
 */
 
 var prompt = require("prompt"),
-	optimist = require('optimist'),
 	exec = require("child_process").exec,
 	os = require("os");
 
@@ -21,9 +20,6 @@ if (os.platform() != 'win32') {
 prompt.message = "";
 prompt.delimiter = "";
 prompt.start();
-
-// allow command line override
-prompt.override = optimist.argv;
 
 prompt.get({
 	properties: {

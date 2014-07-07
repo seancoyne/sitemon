@@ -1,24 +1,23 @@
 #!/usr/bin/env node
 
-var program = require('commander');
+var rc = require("rc");
 var pkg = require("../package.json");
 var sitemon = require("../index.js");
 
-program
-	.version(pkg.version)
-	.option('-u, --url <url>', 'Required. URL to check for a 200 or 301 statuscode')
-	.option('-c, --command <command>', 'Required. A command to run if the site is down.')
-	.option('-i, --interval [interval]', 'Optional. How often, in minutes, should we check the site? Defaults to 5 minutes', 5)
-	.option('-t, --timeout [timeout]', 'Optional. How long, in seconds, should we wait for the site to respond? Defaults to 30 seconds', 30)
-	.option('-r, --retries [num]', 'Optional.  How many times should we try accessing the website before restarting it?  Defaults to 1', 1)
-	.parse(process.argv);
+var conf = rc("sitemon", {
+	url: "http://localhost/",
+	command: "echo \"No action taken\" && exit 0",
+	interval: 5,
+	timeout: 30,
+	retries: 1
+});
 
 sitemon(
-	program.url,
-	program.command,
-	program.retries,
-	((program.interval * 60 * 1000) / 2),
-	(program.timeout * 1000),
+	conf.url,
+	conf.command,
+	conf.retries,
+	((conf.interval * 60 * 1000) / 2),
+	(conf.timeout * 1000),
 	function(err){
 		console.info(new Date(), "Site is down!");
 	},
@@ -35,4 +34,5 @@ sitemon(
 	}
 );
 
+console.info(new Date(), pkg.name + " v" + pkg.version);
 console.info(new Date(), "Monitoring...");
