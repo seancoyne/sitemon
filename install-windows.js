@@ -51,6 +51,7 @@ prompt.get({
 	
 	var nssmPath = result.pathtonssm;
 	var nssmServiceName = result.servicename;
+	var nssmAppDirectory = path.dirname(siteMonPath);
 	var nssmServiceDescription = result.servicedescription;
 	var nssmInstallCommand = nssmPath + ' install "' + nssmServiceName + '" "' + nodePath + '" "' + siteMonPath + '"';
 	var nssmErrorLogPath = path.normalize(logDir + '/stderr.log');
@@ -77,9 +78,11 @@ prompt.get({
 	
 	runCommand(nssmInstallCommand, function(){
 		setNSSMServiceProperty(nssmServiceName, 'Description', nssmServiceDescription, function(){
-			setNSSMServiceProperty(nssmServiceName, 'AppStderr', nssmErrorLogPath, function(){
-				setNSSMServiceProperty(nssmServiceName, 'AppStdout', nssmOutLogPath, function(){
-					console.log("Complete!");
+			setNSSMServiceProperty(nssmServiceName, 'AppDirectory', nssmAppDirectory, function(){
+				setNSSMServiceProperty(nssmServiceName, 'AppStderr', nssmErrorLogPath, function(){
+					setNSSMServiceProperty(nssmServiceName, 'AppStdout', nssmOutLogPath, function(){
+						console.log("Complete!");
+					});
 				});
 			});
 		});
