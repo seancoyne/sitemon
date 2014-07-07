@@ -25,7 +25,7 @@ You can run any command when the server is unavailable that you can run from the
 
 ## Service
 
-You can also run this as a service.  On Windows I use [NSSM - The Non-Sucking Service Manager](http://www.nssm.cc/) for this.
+You can also run this as a service.  On Windows I use [NSSM - The Non-Sucking Service Manager](http://www.nssm.cc/) for this.  I have included two scripts `install-windows.js` and `uninstall-windows.js` that will install or uninstall a Windows service.  This uses NSSM so you will need to have that on your system prior to running these, and know the path to the nssm.exe executable.
 
 ## Node Module
 
