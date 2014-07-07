@@ -1,6 +1,6 @@
 {
   "name": "sitemon",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Monitors a URL and, if non-responsive, executes a command",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.2.0",
-    "http-monitor": "^0.3.5"
+    "http-monitor": "^0.3.5",
+    "optimist": "^0.6.1",
+    "prompt": "^0.2.13"
   },
   "preferGlobal": true,
   "directories": {
@@ -26,11 +28,11 @@
   "bugs": "https://github.com/seancoyne/sitemon/issues",
   "homepage": "https://github.com/seancoyne/sitemon",
   "keywords": [
-  	"url",
-  	"monitor",
-  	"site"
+    "url",
+    "monitor",
+    "site"
   ],
   "engines": {
-  	"node": ">=0.10.29"
+    "node": ">=0.10.29"
   }
 }

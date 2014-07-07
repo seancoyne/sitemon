@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 module.exports = function(url, command, retries, interval, timeout, onError, onRecovery, onCheck, onCommandComplete){
 
 	return require("http-monitor")(url, {
