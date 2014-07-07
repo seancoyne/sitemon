@@ -1,7 +1,0 @@
-{
-	"url": "http://localhost/",
-	"command": "Echo \"No action taken\" && exit 0",
-	"interval": 5,
-	"timeout": 30,
-	"retries": 1
-}

@@ -8,7 +8,18 @@ Monitors a URL.  If unavailable a command is executed.
 
 ## Usage
 
-Update the .sitemonrc file to match your settings (the URL, command to run, etc) then run `./bin/sitemon` or if you installed globally, just `sitemon`
+Create a `.sitemonrc` in your home directory in the following format:
+````JSON
+{
+	"url": "http://localhost/",
+	"command": "Echo \"No action taken\" && exit 0",
+	"interval": 5,
+	"timeout": 30,
+	"retries": 1
+}
+````
+
+where URL is the URL to monitor, command is the command to run, interval is how often, in minutes to check, timeout is the time in seconds to wait for the URL to respond and retries is the number of times to try the URL.
 
 You can run any command when the server is unavailable that you can run from the command line.  Be sure to run sitemon as the appropriate user so that your commands are successful.
 
