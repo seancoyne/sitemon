@@ -4,7 +4,7 @@ Monitors a URL.  If unavailable a command is executed.
 
 ## Installation
 
-`npm install -g sitemon`
+`npm install -g https://github.com/seancoyne/sitemon.git`
 
 ## Usage
 
