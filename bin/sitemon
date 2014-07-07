@@ -35,4 +35,4 @@ sitemon(
 );
 
 console.info(new Date(), pkg.name + " v" + pkg.version);
-console.info(new Date(), "Monitoring...");
+console.info(new Date(), "Monitoring URL:", conf.url);
