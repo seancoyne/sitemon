@@ -20,7 +20,7 @@ sitemon(
 	((program.interval * 60 * 1000) / 2),
 	(program.timeout * 1000),
 	function(err){
-		console.warn(new Date(), "Site is down!");
+		console.info(new Date(), "Site is down!");
 	},
 	function(){
 		console.info(new Date(), "Site is back up!");
