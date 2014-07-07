@@ -8,9 +8,7 @@ Monitors a URL.  If unavailable a command is executed.
 
 ## Usage
 
-In this example, http://someurl.com would be monitored.  It would be checked every 5 minutes and timeout after 30 seconds.  It would try 1 time to reach the server.  If the server was unavailable, then the command `net stop "Apache2.2" && net start "Apache2.2"` would be executed, restarting the Apache.  This is a Windows example, but this tool should work on any platform.
-
-`sitemon --url http://someurl.com --command "net stop ""Apache2.2"" && net start ""Apache2.2""" --interval 5 --timeout 30 --retries 1`
+Update the .sitemonrc file to match your settings (the URL, command to run, etc) then run `./bin/sitemon` or if you installed globally, just `sitemon`
 
 You can run any command when the server is unavailable that you can run from the command line.  Be sure to run sitemon as the appropriate user so that your commands are successful.
 
